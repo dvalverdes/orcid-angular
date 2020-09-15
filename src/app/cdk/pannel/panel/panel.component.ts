@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 
 @Component({
   selector: 'app-panel',
@@ -9,9 +9,15 @@ export class PanelComponent implements OnInit {
   tooltipLabelShowDetails = $localize`:@@shared.showDetails:Show details`
   tooltipLabelHideDetails = $localize`:@@shared.hideDetails:Hide details`
   tooltipLabelEdit = $localize`:@@shared.edit:Edit`
+  @Output() edit = new EventEmitter<void>()
+
   openState = false
   editable = true
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  editElement() {
+    this.edit.next()
+  }
 }

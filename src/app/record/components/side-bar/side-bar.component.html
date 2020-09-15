@@ -2,7 +2,7 @@
   [id]="userSession.userInfo.EFFECTIVE_USER_ORCID"
 ></app-side-bar-id>
 
-<app-panel body *ngIf="userRecord">
+<app-panel body *ngIf="userRecord" (edit)="edit($event)">
   <h2 header class="orc-font-body" i18n="@@record.alsoKnowAs">Also known as</h2>
   <div body>
     <app-panel-element

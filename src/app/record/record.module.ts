@@ -8,6 +8,8 @@ import { SideBarIdComponent } from './components/side-bar-id/side-bar-id.compone
 import { TopBarComponent } from './components/top-bar/top-bar.component'
 import { MainComponent } from './components/main/main.component'
 import { PannelModule } from '../cdk/pannel/pannel.module'
+import { MatDialogModule } from '@angular/material/dialog'
+import { DialogFormModule } from '../cdk/dialog-form/dialog-form.module'
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { PannelModule } from '../cdk/pannel/pannel.module'
     SideBarIdComponent,
     TopBarComponent,
     MainComponent,
+
+
   ],
-  imports: [CommonModule, RecordRoutingModule, PannelModule],
+  imports: [CommonModule, RecordRoutingModule, PannelModule, MatDialogModule, DialogFormModule],
 })
-export class RecordModule {}
+export class RecordModule { }
