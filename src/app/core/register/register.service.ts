@@ -81,12 +81,12 @@ export class RegisterService extends _RegisterServiceMixingBase {
   ): Observable<RegisterConfirmResponse> {
     this.backendRegistrationForm.valNumClient =
       this.backendRegistrationForm.valNumServer / 2
-    const registerForm = this.formGroupToFullRegistrationForm(
+    let registerForm = this.formGroupToFullRegistrationForm(
       StepA,
       StepB,
       StepC
     )
-    this.addOauthContext(registerForm, requestInfoForm)
+    registerForm = this.addOauthContext(registerForm, requestInfoForm)
     return this._platform.get().pipe(
       first(),
       switchMap((platform) => {
@@ -140,10 +140,12 @@ export class RegisterService extends _RegisterServiceMixingBase {
   addOauthContext(
     registerForm: RegisterForm,
     requestInfoForm?: RequestInfoForm
-  ): void {
+  ): RegisterForm {
     if (requestInfoForm) {
-      registerForm.referredBy = { value: requestInfoForm.clientId }
+      registerForm.referredBy = requestInfoForm.clientId
+      registerForm.creationType = { value: 'Member-referred' };
     }
+    return registerForm
   }
   addCreationTypeContext(
     platform: PlatformInfo,

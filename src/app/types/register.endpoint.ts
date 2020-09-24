@@ -15,7 +15,7 @@ export interface RegisterForm {
   givenNames?: Value
   familyNames?: Value
   creationType?: Value
-  referredBy?: Value
+  referredBy?: string
   sendEmailFrequencyDays?: Value
   valNumServer?: number
   valNumClient?: number
