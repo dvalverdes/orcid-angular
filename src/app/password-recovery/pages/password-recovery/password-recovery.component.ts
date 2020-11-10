@@ -34,7 +34,10 @@ export class PasswordRecoveryComponent implements OnInit, AfterViewInit {
   submitted = false
   @ViewChild('passwordChip') passwordChip: MatChip
 
-  emailFormControl = new FormControl('', [Validators.required])
+  emailFormControl = new FormControl('', [
+    OrcidValidators.emailGeneric,
+    Validators.required,
+  ])
   typeFormControl = new FormControl('resetPassword', [Validators.required])
 
   recoveryForm = new FormGroup({
