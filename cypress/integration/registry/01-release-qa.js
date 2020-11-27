@@ -1,8 +1,7 @@
-/*
 const date = require('../../helpers/date')
 let name
 
-describe.skip('"Manual" QA Tests', () => {
+describe('"Manual" QA Tests', () => {
   beforeEach(() => {
     Cypress.Cookies.preserveOnce('XSRF-TOKEN', 'JSESSIONID')
   })
@@ -13,7 +12,7 @@ describe.skip('"Manual" QA Tests', () => {
     })
 
     it('Visit https://qa.orcid.org/ and find the cookies banner', () => {
-      cy.visit('qa.orcid.org')
+      cy.visit('https://qa.orcid.org/')
       cy.get('app-banner').contains(
         'ORCID uses cookies to improve your experience and to help us understand how you use our websites. Learn more about how we use cookies.'
       )
@@ -146,7 +145,7 @@ describe.skip('"Manual" QA Tests', () => {
 
   context('Verification 2: Mailinator Tests', () => {
     it('Visit Mailinator', () => {
-      cy.visit('https://mailinator.com')
+      cy.visit('https://www.mailinator.com/')
     })
 
     it('Retrieve ORCID name', () => {
@@ -158,7 +157,6 @@ describe.skip('"Manual" QA Tests', () => {
     })
 
     it('Sign into Mailinator', () => {
-      cy.visit('https://mailinator.com')
       cy.get('#addOverlay')
         .type('ma_test_' + name)
         .should('have.value', 'ma_test_' + name)
@@ -168,7 +166,7 @@ describe.skip('"Manual" QA Tests', () => {
     it('Verify there are three emails present', () => {
       cy.get('tbody:visible', { timeout: 120000 })
         .find('tr')
-        .should('have.length', 3)
+        .should('have.length', 3, { timeout: 120000 })
     })
 
     it('Click the first message', () => {
@@ -180,16 +178,22 @@ describe.skip('"Manual" QA Tests', () => {
         .contains('Verify your email address')
         .should('have.attr', 'href')
         .then((href) => {
-          cy.writeFile('./cypress/integration/registry/data/link.txt', href)
+          cy.writeFile(
+            './cypress/integration/registry/data/link.txt',
+            href.slice(21)
+          )
         })
     })
   })
 
   context('Verification 3: Wrapping Up', () => {
     it('Visit verification link', () => {
+      cy.visit('https://qa.orcid.org/')
+    })
+    it('Visit verification link', () => {
       cy.readFile('./cypress/integration/registry/data/link.txt').then(
         (href) => {
-          cy.visit(href)
+          cy.request(href)
         }
       )
     })
@@ -203,6 +207,7 @@ describe.skip('"Manual" QA Tests', () => {
     })
 
     it('Sign in', () => {
+      cy.visit('https://qa.orcid.org/signin/')
       cy.get('input[formcontrolname="username"]')
         .type('ma_test_' + name + '@mailinator.com')
         .should('have.value', 'ma_test_' + name + '@mailinator.com')
@@ -210,11 +215,11 @@ describe.skip('"Manual" QA Tests', () => {
         .type('test1234')
         .should('have.value', 'test1234')
         .and('have.attr', 'type', 'password')
-      cy.get('button[type="submit"]').click()
+      cy.get('button[id="signin-button"]').click()
     })
 
     it('Save ORCID iD into a file', () => {
-      cy.get('#orcid-id')
+      cy.get('#orcid-id', { timeout: 120000 })
         .invoke('text')
         .then((orcid) => {
           cy.writeFile('./cypress/integration/registry/data/orcid.txt', orcid)
@@ -231,10 +236,13 @@ describe.skip('"Manual" QA Tests', () => {
 
   context('Password reset procedure 1: Request Link', () => {
     it('Find and click the "Forgot your password or ORCID ID?" button', () => {
-      cy.get('a:visible').contains('Forgot your password or ORCID ID?').click()
       cy.wait(1000)
+      cy.get('a:visible', { timeout: 60000 })
+        .filter('[id="forgot-password-button"]')
+        .click()
     })
     it('Request password reset link', () => {
+      cy.wait(1000)
       cy.get('input:visible')
         .filter('[formcontrolname="email"]')
         .type('ma_test_' + name + '@mailinator.com')
@@ -256,7 +264,7 @@ describe.skip('"Manual" QA Tests', () => {
 
   context('Password reset procedure 2: Mailinator', () => {
     it('Visit Mailinator', () => {
-      cy.visit('https://mailinator.com')
+      cy.visit('https://www.mailinator.com/')
     })
 
     it('Retrieve ORCID name', () => {
@@ -329,15 +337,15 @@ describe.skip('"Manual" QA Tests', () => {
         .type(name)
         .should('have.value', name)
         .and('have.attr', 'type', 'password')
-      cy.get('button[type="submit"]').click()
+      cy.get('button[id="signin-button"]').click()
+      cy.wait(10000)
     })
 
     it('Sign out', () => {
-      cy.get('user-menu').click()
-      cy.get('a:visible')
+      cy.get('user-menu', { timeout: 60000 }).click()
+      cy.get('a:visible', { timeout: 60000 })
         .filter('[href="https://qa.orcid.org/signout"]')
         .click()
     })
   })
 })
-*/

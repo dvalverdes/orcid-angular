@@ -24,7 +24,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "e2e:qa": "cypress open --config baseUrl=https://qa.orcid.org",
+    "e2e:qa": "cypress run --config baseUrl=https://qa.orcid.org --spec cypress/integration/registry/01-release-qa.js",
     "prebuild": "rimraf dist && yarn build:i18n && yarn build:browserslist",
     "build": "ng build --prod --localize",
     "postbuild": "ts-node -P scripts/tsconfig.json scripts/postbuild.ts --env production",
