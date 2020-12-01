@@ -285,7 +285,7 @@ describe('"Manual" QA Tests', () => {
     it('Check that the "About your ORCID iD" message is present', () => {
       cy.get('tbody:visible')
         .find('tr', { timeout: 120000 })
-        .should('have.length', 5)
+        .should('have.length', 5, { timeout: 120000 })
         .contains('Your ORCID iD')
     })
 

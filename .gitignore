@@ -58,3 +58,4 @@ tx.exe
 /cypress/videos/*
 /cypress/screenshots/*
 /cypress/reports/**
+/cypress/integration/registry/data/**
