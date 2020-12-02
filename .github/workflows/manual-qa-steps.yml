@@ -1,4 +1,4 @@
-name: Trigger QA tests
+name: Manual QA Steps 🧪
 on:
   workflow_dispatch:
 
