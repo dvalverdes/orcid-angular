@@ -166,7 +166,7 @@ describe('"Manual" QA Tests', () => {
     it('Verify there are three emails present', () => {
       cy.get('tbody:visible', { timeout: 120000 })
         .find('tr')
-        .should('have.length', 3, { timeout: 120000 })
+        .should('have.length', 3, { timeout: 240000 })
     })
 
     it('Click the first message', () => {
@@ -285,7 +285,7 @@ describe('"Manual" QA Tests', () => {
     it('Check that the "About your ORCID iD" message is present', () => {
       cy.get('tbody:visible')
         .find('tr', { timeout: 120000 })
-        .should('have.length', 5, { timeout: 120000 })
+        .should('have.length', 5, { timeout: 240000 })
         .contains('Your ORCID iD')
     })
 
