@@ -29,6 +29,7 @@ jobs:
       - name: run tests
         run: npm run e2e:qa
       - uses: actions/upload-artifact@v1
+        if: failure()
         with:
           name: cypress-videos
           path: cypress/videos
