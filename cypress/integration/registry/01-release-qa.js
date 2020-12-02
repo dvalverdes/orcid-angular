@@ -251,6 +251,8 @@ describe('"Manual" QA Tests', () => {
     })
     it('Reload', () => {
       cy.reload()
+      // Allow some time in between the password reset / what is my iD messages
+      cy.wait(3000)
     })
     it('Request ORCID iD', () => {
       cy.get('mat-chip:visible').filter('[value="remindOrcidId"]').click()
