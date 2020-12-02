@@ -11,6 +11,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/upload-artifact@v1
+        with:
+          name: cypress-videos
+          path: cypress/videos
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -28,7 +32,3 @@ jobs:
           npm i
       - name: run tests
         run: npm run e2e:qa
-        uses: actions/upload-artifact@v1
-        with:
-          name: cypress-videos
-          path: cypress/videos
