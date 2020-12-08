@@ -120,6 +120,7 @@ describe('"Manual" QA Tests', () => {
 
   context('Verification 1: Request Verification Messages', () => {
     it('Send 2nd verification message', () => {
+      cy.wait(15000)
       cy.contains('Resend verification email', { timeout: 20000 }).click()
       cy.wait(1000)
       cy.get('button').filter('.btn-white-no-border').contains('Close').click()
@@ -252,7 +253,7 @@ describe('"Manual" QA Tests', () => {
     it('Reload', () => {
       cy.reload()
       // Allow some time in between the password reset / what is my iD messages
-      cy.wait(3000)
+      cy.wait(15000)
     })
     it('Request ORCID iD', () => {
       cy.get('mat-chip:visible').filter('[value="remindOrcidId"]').click()
