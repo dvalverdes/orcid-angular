@@ -12,7 +12,6 @@ import { environment } from '../../../environments/environment'
 export class RecordOtherNamesService {
   $otherNames: ReplaySubject<OtherNamesEndPoint>
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -32,7 +31,7 @@ export class RecordOtherNamesService {
       .get<OtherNamesEndPoint>(
         environment.API_WEB + `my-orcid/otherNamesForms.json`,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(
@@ -54,7 +53,7 @@ export class RecordOtherNamesService {
       .post<OtherNamesEndPoint>(
         environment.API_WEB + `my-orcid/otherNamesForms.json`,
         otherNames,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),

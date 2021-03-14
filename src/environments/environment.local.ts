@@ -4,8 +4,8 @@ export const environment = {
   API_NEWS: 'https://www.mocky.io/v2/5dced45b3000007300931ce8',
   API_NEWS_DEPRECATED: 'https://www.mocky.io/v2/5dced45b3000007300931ce8',
   API_PUB: '//pub.dev.orcid.org/v3.0',
-  API_WEB: '//dev.orcid.org/',
-  BASE_URL: '//dev.orcid.org/',
+  API_WEB: '//localhost:81/',
+  BASE_URL: '//localhost:4200/',
   BLOG_NEWS: 'https://info.orcid.org/',
   INFO_SITE: '//qa.orcid.org/',
   // The following variable is temporal and should only be used for URLs that

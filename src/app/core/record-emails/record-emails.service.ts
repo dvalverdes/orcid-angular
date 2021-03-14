@@ -22,7 +22,6 @@ import { ErrorHandlerService } from '../error-handler/error-handler.service'
 })
 export class RecordEmailsService {
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
   private $emailsSubject
@@ -41,6 +40,7 @@ export class RecordEmailsService {
     this._http
       .get<EmailsEndpoint>(environment.API_WEB + `account/emails.json`, {
         headers: this.headers,
+        withCredentials: true,
       })
       .pipe(
         retry(3),
@@ -67,6 +67,7 @@ export class RecordEmailsService {
         otherNames,
         {
           headers: this.headers,
+          withCredentials: true,
         }
       )
       .pipe(
@@ -80,6 +81,7 @@ export class RecordEmailsService {
     return this._http
       .post<Assertion>(environment.API_WEB + `account/addEmail.json`, email, {
         headers: this.headers,
+        withCredentials: true,
       })
       .pipe(
         retry(3),
@@ -94,6 +96,7 @@ export class RecordEmailsService {
         environment.API_WEB + `account/verifyEmail.json?email=${email}`,
         {
           headers: this.headers,
+          withCredentials: true,
         }
       )
       .pipe(
@@ -110,6 +113,7 @@ export class RecordEmailsService {
         email,
         {
           headers: this.headers,
+          withCredentials: true,
         }
       )
       .pipe(

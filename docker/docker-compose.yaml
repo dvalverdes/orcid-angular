@@ -1,0 +1,11 @@
+version: '3'
+services:
+  orcid-reverse-proxy:
+    container_name: orcid-reverse-proxy
+    hostname: orcid-reverse-proxy
+    image: nginx
+    ports:
+      - 81:81
+    volumes:
+      - ./volumes/config:/etc/nginx/conf.d
+    build: .

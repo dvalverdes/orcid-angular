@@ -16,7 +16,6 @@ export class RecordCountriesService {
   $countryCodes: ReplaySubject<RecordCountryCodesEndpoint>
   $addresses: ReplaySubject<CountriesEndpoint>
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -32,7 +31,7 @@ export class RecordCountriesService {
         .get<RecordCountryCodesEndpoint>(
           environment.API_WEB + `countryNamesToCountryCodes.json`,
           {
-            headers: this.headers,
+            headers: this.headers, 'withCredentials': true,
           }
         )
         .pipe(
@@ -58,7 +57,7 @@ export class RecordCountriesService {
       .get<CountriesEndpoint>(
         environment.API_WEB + `account/countryForm.json`,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(
@@ -81,7 +80,7 @@ export class RecordCountriesService {
       .post<CountriesEndpoint>(
         environment.API_WEB + `account/countryForm.json`,
         countries,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),

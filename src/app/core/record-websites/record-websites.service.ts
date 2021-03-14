@@ -12,7 +12,6 @@ import { ErrorHandlerService } from '../error-handler/error-handler.service'
 export class RecordWebsitesService {
   $websites: ReplaySubject<WebsitesEndPoint>
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -32,7 +31,7 @@ export class RecordWebsitesService {
       .get<WebsitesEndPoint>(
         environment.API_WEB + `my-orcid/websitesForms.json`,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(
@@ -51,7 +50,7 @@ export class RecordWebsitesService {
       .post<WebsitesEndPoint>(
         environment.API_WEB + `my-orcid/websitesForms.json`,
         website,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),

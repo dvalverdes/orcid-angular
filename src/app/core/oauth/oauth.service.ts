@@ -46,7 +46,6 @@ export class OauthService {
     @Inject(WINDOW) private window: Window
   ) {
     this.headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
     })
   }
@@ -71,7 +70,7 @@ export class OauthService {
     return this._http
       .get<RequestInfoForm>(
         environment.BASE_URL + 'oauth/custom/requestInfoForm.json',
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         // Return null if the requestInfo is empty
@@ -97,7 +96,7 @@ export class OauthService {
       .post<RequestInfoForm>(
         environment.BASE_URL + 'oauth/custom/authorize.json',
         value,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),
@@ -132,7 +131,7 @@ export class OauthService {
           environment.BASE_URL +
             `oauth/custom/init.json?${objectToUrlParameters(queryParameters)}`,
           queryParameters,
-          { headers: this.headers }
+          { headers: this.headers, 'withCredentials': true }
         )
         .pipe(
           retry(3),
@@ -201,7 +200,7 @@ export class OauthService {
         environment.BASE_URL +
           // tslint:disable-next-line:max-line-length
           `oauth/custom/authorize.json?${objectToUrlParameters(value)}`,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),
@@ -212,7 +211,7 @@ export class OauthService {
   loadShibbolethSignInData(): Observable<SignInData> {
     return this._http
       .get<SignInData>(environment.BASE_URL + 'shibboleth/signinData.json', {
-        headers: this.headers,
+        headers: this.headers, 'withCredentials': true,
       })
       .pipe(
         retry(3),
@@ -225,7 +224,7 @@ export class OauthService {
   loadSocialSigninData(): Observable<SignInData> {
     return this._http
       .get<SignInData>(environment.BASE_URL + 'social/signinData.json', {
-        headers: this.headers,
+        headers: this.headers, 'withCredentials': true,
       })
       .pipe(
         retry(3),
@@ -242,7 +241,7 @@ export class OauthService {
     }
     return this._http
       .post<TwoFactor>(environment.BASE_URL + url, twoFactor, {
-        headers: this.headers,
+        headers: this.headers, 'withCredentials': true,
       })
       .pipe(
         retry(3),

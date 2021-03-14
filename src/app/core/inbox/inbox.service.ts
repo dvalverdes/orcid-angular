@@ -45,7 +45,6 @@ export class InboxService {
     private _errorHandler: ErrorHandlerService
   ) {
     this.headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
     })
   }
@@ -122,7 +121,7 @@ export class InboxService {
               AMOUNT_OF_RETRIEVE_NOTIFICATIONS_PER_CALL
             }&includeArchived=${includeArchived}`,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(
@@ -149,7 +148,7 @@ export class InboxService {
         | InboxNotificationInstitutional
         | InboxNotificationPermission
       >(environment.BASE_URL + `inbox/${code}/archive.json`, code, {
-        headers: this.headers,
+        headers: this.headers, 'withCredentials': true,
       })
       .pipe(
         retry(3),
@@ -197,7 +196,7 @@ export class InboxService {
         | InboxNotificationInstitutional
         | InboxNotificationPermission
       >(environment.BASE_URL + `inbox/${code}/read.json`, code, {
-        headers: this.headers,
+        headers: this.headers, 'withCredentials': true,
       })
       .pipe(
         retry(3),
@@ -218,7 +217,7 @@ export class InboxService {
       .get<TotalNotificationCount>(
         environment.BASE_URL + `inbox/totalCount.json`,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(

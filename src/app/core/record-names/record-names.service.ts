@@ -12,7 +12,6 @@ import { environment } from '../../../environments/environment'
 export class RecordNamesService {
   $names: ReplaySubject<NamesEndPoint>
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -30,7 +29,7 @@ export class RecordNamesService {
 
     this._http
       .get<NamesEndPoint>(environment.API_WEB + `account/nameForm.json`, {
-        headers: this.headers,
+        headers: this.headers, 'withCredentials': true,
       })
       .pipe(
         retry(3),
@@ -50,7 +49,7 @@ export class RecordNamesService {
         environment.API_WEB + `account/nameForm.json`,
         names,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true, 
         }
       )
       .pipe(

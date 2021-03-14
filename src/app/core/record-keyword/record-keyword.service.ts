@@ -12,7 +12,6 @@ import { environment } from '../../../environments/environment'
 export class RecordKeywordService {
   $keywords: ReplaySubject<KeywordEndPoint>
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -32,7 +31,7 @@ export class RecordKeywordService {
       .get<KeywordEndPoint>(
         environment.API_WEB + `my-orcid/keywordsForms.json`,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(
@@ -52,7 +51,7 @@ export class RecordKeywordService {
       .post<KeywordEndPoint>(
         environment.API_WEB + `my-orcid/keywordsForms.json`,
         keywords,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),

@@ -53,7 +53,6 @@ export class RecordService {
   ) {}
 
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -140,7 +139,7 @@ export class RecordService {
     return this._http
       .get<ExternalIdentifier>(
         environment.API_WEB + `my-orcid/externalIdentifiers.json`,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),
@@ -151,7 +150,7 @@ export class RecordService {
   getKeywords(): Observable<Keywords> {
     return this._http
       .get<Keywords>(environment.API_WEB + `my-orcid/keywordsForms.json`, {
-        headers: this.headers,
+        headers: this.headers, 'withCredentials': true,
       })
       .pipe(
         retry(3),
@@ -167,7 +166,7 @@ export class RecordService {
       .post<ExternalIdentifier>(
         environment.API_WEB + `my-orcid/externalIdentifiers.json`,
         website,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),
@@ -180,7 +179,7 @@ export class RecordService {
       .post<Keywords>(
         environment.API_WEB + `my-orcid/keywordsForms.json`,
         keywords,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),
@@ -193,7 +192,7 @@ export class RecordService {
       .get<Preferences>(
         environment.API_WEB + `account/preferences.json`,
 
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),
@@ -206,7 +205,7 @@ export class RecordService {
       .post<Preferences>(
         environment.API_WEB + `account/preferences.json`,
         names,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),

@@ -12,7 +12,6 @@ import { BiographyEndPoint } from '../../types/record-biography.endpoint'
 export class RecordBiographyService {
   $biography: ReplaySubject<BiographyEndPoint>
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -31,7 +30,7 @@ export class RecordBiographyService {
     this._http
       .get<BiographyEndPoint>(
         environment.API_WEB + `account/biographyForm.json`,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),
@@ -49,7 +48,7 @@ export class RecordBiographyService {
       .post<BiographyEndPoint>(
         environment.API_WEB + `account/biographyForm.json`,
         biography,
-        { headers: this.headers }
+        { headers: this.headers, 'withCredentials': true }
       )
       .pipe(
         retry(3),

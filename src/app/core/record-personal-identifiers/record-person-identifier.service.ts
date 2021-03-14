@@ -12,7 +12,6 @@ import { ErrorHandlerService } from '../error-handler/error-handler.service'
 export class RecordPersonIdentifierService {
   $externalIdentifiers: ReplaySubject<PersonIdentifierEndpoint>
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   })
 
@@ -32,7 +31,7 @@ export class RecordPersonIdentifierService {
       .get<PersonIdentifierEndpoint>(
         environment.API_WEB + `my-orcid/externalIdentifiers.json`,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(
@@ -57,7 +56,7 @@ export class RecordPersonIdentifierService {
         environment.API_WEB + `my-orcid/externalIdentifiers.json`,
         otherNames,
         {
-          headers: this.headers,
+          headers: this.headers, 'withCredentials': true,
         }
       )
       .pipe(

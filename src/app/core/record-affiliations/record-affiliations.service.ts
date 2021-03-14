@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
 import { catchError, map, retry, switchMap, tap } from 'rxjs/operators'
@@ -22,6 +22,10 @@ export class RecordAffiliationService {
   lastEmitedValue: AffiliationUIGroup[]
 
   $affiliations: ReplaySubject<AffiliationUIGroup[]>
+
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
 
   constructor(
     private _http: HttpClient,
@@ -78,7 +82,11 @@ export class RecordAffiliationService {
     return this._http
       .get<Affiliation>(
         environment.API_WEB +
-          `affiliations/affiliationDetails.json?id=${putCode}&type=${type}`
+          `affiliations/affiliationDetails.json?id=${putCode}&type=${type}`,
+        {
+          headers: this.headers,
+          withCredentials: true,
+        }
       )
       .pipe(
         retry(3),
@@ -89,7 +97,11 @@ export class RecordAffiliationService {
   private getGroupAndSortAffiliations(): Observable<AffiliationUIGroup[]> {
     return this._http
       .get<AffiliationsEndpoint>(
-        environment.API_WEB + `affiliations/affiliationGroups.json`
+        environment.API_WEB + `affiliations/affiliationGroups.json`,
+        {
+          headers: this.headers,
+          withCredentials: true,
+        }
       )
       .pipe(
         retry(3),
